@@ -5,13 +5,5 @@ package de.codecentric.jbehave.junit.monitoring;
  * @since 27/07/16
  */
 public enum JUnitReportLevel {
-	STORY, STEP;
-	
-	public boolean isAtMinimumStoryLevel() {
-		return JUnitReportLevel.STORY.compareTo(this) <= 0;
-	}
-
-	public boolean isAtMinimumStepLevel() {
-		return JUnitReportLevel.STEP.compareTo(this) <= 0;
-	}
+    STORY, STEP
 }

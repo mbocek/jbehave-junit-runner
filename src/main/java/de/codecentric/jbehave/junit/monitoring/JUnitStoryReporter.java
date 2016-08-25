@@ -1,24 +1,10 @@
 package de.codecentric.jbehave.junit.monitoring;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.jbehave.core.failures.FailingUponPendingStep;
 import org.jbehave.core.failures.PassingUponPendingStep;
 import org.jbehave.core.failures.PendingStepStrategy;
 import org.jbehave.core.failures.UUIDExceptionWrapper;
-import org.jbehave.core.model.ExamplesTable;
-import org.jbehave.core.model.GivenStories;
-import org.jbehave.core.model.Lifecycle;
-import org.jbehave.core.model.Meta;
-import org.jbehave.core.model.Narrative;
-import org.jbehave.core.model.OutcomesTable;
-import org.jbehave.core.model.Scenario;
-import org.jbehave.core.model.Story;
-import org.jbehave.core.model.StoryDuration;
+import org.jbehave.core.model.*;
 import org.jbehave.core.reporters.StoryReporter;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
@@ -27,12 +13,14 @@ import org.junit.runner.notification.RunNotifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.*;
+
 /**
- * Implementation of {@link StoryReporter}. 
+ * Implementation of {@link StoryReporter}.
  * This reporter reports only story level events.
- * 
+ *
  * @author Michal Bocek
- * @since 27/07/16 
+ * @since 27/07/16
  */
 public class JUnitStoryReporter implements ExtendedStoryReporter {
 	private static Logger logger = LoggerFactory.getLogger(JUnitStoryReporter.class);
@@ -41,18 +29,17 @@ public class JUnitStoryReporter implements ExtendedStoryReporter {
 	private final Description rootDescription;
 	private final ArrayList<Description> storyDescriptions;
 
-	private Description currentStoryDescription;
-	private String currentStoryTitle;
+    private Description currentStoryDescription;
+    private String currentStoryTitle;
 	private String currentScenarioTitle;
-	int testCounter = 0;
+	private int testCounter = 0;
 	private final int totalTests;
 
-	public Set<Description> failedSteps = new HashSet<Description>();
+	public Set<Description> failedSteps = new HashSet<>();
 
 	private PendingStepStrategy pendingStepStrategy = new PassingUponPendingStep();
 
-	public JUnitStoryReporter(RunNotifier notifier, int totalTests,
-			Description rootDescription) {
+	public JUnitStoryReporter(RunNotifier notifier, int totalTests, Description rootDescription) {
 		this.totalTests = totalTests;
 		this.rootDescription = rootDescription;
 		this.notifier = notifier;
@@ -126,7 +113,7 @@ public class JUnitStoryReporter implements ExtendedStoryReporter {
 	@Override
 	public void failed(String step, Throwable e) {
 		if (e instanceof UUIDExceptionWrapper) {
-			e = ((UUIDExceptionWrapper) e).getCause();
+			e = e.getCause();
 		}
 		logger.info("Step Failed: {} (cause: {})", step, e.getMessage());
         Description description = currentStoryDescription == null ? rootDescription : currentStoryDescription;

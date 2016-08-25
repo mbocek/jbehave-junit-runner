@@ -5,16 +5,16 @@ import org.jbehave.core.reporters.StoryReporter;
 
 /**
  * Extended {@link StoryReporter}.
- * 
+ *
  * @author Michal Bocek
  * @since 28/7/16
  */
 public interface ExtendedStoryReporter extends StoryReporter {
-	
-	/**
-	 * Use pending step strategy.
-	 *
-	 * @param strategy the strategy
-	 */
-	void usePendingStepStrategy(PendingStepStrategy strategy);
+
+    /**
+     * Use pending step strategy.
+     *
+     * @param strategy the strategy
+     */
+    void usePendingStepStrategy(PendingStepStrategy strategy);
 }

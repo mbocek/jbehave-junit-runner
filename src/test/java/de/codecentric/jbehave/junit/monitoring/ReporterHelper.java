@@ -13,7 +13,7 @@ import org.junit.runner.Description;
 public final class ReporterHelper {
 
 	private static final String BEFORE_STORIES = "BeforeStories";
-	private static final String AFTER_STORIES = "AfterStories";
+    private static final String AFTER_STORIES = "AfterStories";
 
 	private ReporterHelper() {
 		throw new UnsupportedOperationException();
@@ -34,12 +34,11 @@ public final class ReporterHelper {
 		rootDescription.addChild(storyDescription);
 		return rootDescription;
 	}
-	
+
 	/**
 	 * Add after stories.
 	 *
 	 * @param rootDescription the root description
-	 * @param storyDescription the story description
 	 * @return the description
 	 */
 	public static Description addAfterStories(Description rootDescription) {
@@ -47,7 +46,6 @@ public final class ReporterHelper {
 		rootDescription.addChild(afterStories);
 		return rootDescription;
 	}
-
 
 	/**
 	 * Report given story events.
@@ -79,7 +77,7 @@ public final class ReporterHelper {
 			if (BEFORE_STORIES.equals(child.getMethodName())) {
 				return child;
 			}
-		} 
+		}
 		throw new IllegalStateException("Descrioption doesn't contains BeforeStories step!");
 	}
 
@@ -92,7 +90,7 @@ public final class ReporterHelper {
 		reporter.beforeStory(new Story(BEFORE_STORIES), false);
 		reporter.afterStory(false);
 	}
-	
+
 	/**
 	 * Report AfterStories as two calls to reporter (beforeStory/afterStory).
 	 *
@@ -102,7 +100,7 @@ public final class ReporterHelper {
 		reporter.beforeStory(new Story(AFTER_STORIES), false);
 		reporter.afterStory(false);
 	}
-	
+
 	/**
 	 * Report story and scenario start.
 	 *
@@ -114,7 +112,7 @@ public final class ReporterHelper {
 		reporter.beforeStory(story, false);
 		reporter.beforeScenario(scenarioName);
 	}
-	
+
 	/**
 	 * Report story and scenario finished.
 	 *
@@ -126,23 +124,20 @@ public final class ReporterHelper {
 		reporter.afterScenario();
 		reporter.afterStory(false);
 	}
-	
+
 	public static void reportStepSuccess(StoryReporter reporter, String stepName) {
 		reporter.beforeStep(stepName);
 		reporter.successful(stepName);
 	}
-	
 
 	public static void reportIgnorable(StoryReporter reporter) {
 		reporter.ignorable("!-- Comment");
 	}
-	
 
 	public static void reportStepFailure(StoryReporter reporter, String stepName) {
 		reporter.beforeStep(stepName);
 		reporter.failed(stepName, new UUIDExceptionWrapper(new Exception("FAIL")));
 	}
-	
 
 	public static Description addChildToScenario(Description scenarioDescription, String childName) {
 		Description child = Description.createTestDescription(Object.class, childName);

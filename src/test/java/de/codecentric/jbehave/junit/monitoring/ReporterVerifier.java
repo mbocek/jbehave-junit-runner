@@ -1,13 +1,13 @@
 package de.codecentric.jbehave.junit.monitoring;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.never;
-
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import org.mockito.Matchers;
+
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 /**
  * Via junit {@link RunNotifier} we verify methods call.
@@ -17,8 +17,8 @@ import org.mockito.Matchers;
  */
 public class ReporterVerifier {
 
-	private RunNotifier notifier;
-	private Description storyDescription;
+    private RunNotifier notifier;
+    private Description storyDescription;
 	private Description scenarioDescription;
 
 	public ReporterVerifier(RunNotifier notifier, Description storyDescription, Description scenarioDescription) {
@@ -33,14 +33,14 @@ public class ReporterVerifier {
 	public void testRunFinished() {
 		verify(notifier).fireTestRunFinished(Matchers.<Result> anyObject());
 	}
-	
+
 	/**
 	 * Method {@link RunNotifier#fireTestRunStarted(Description)} was called
 	 */
 	public void testRunStarted() {
 		verify(notifier).fireTestRunStarted(Matchers.<Description> anyObject());
 	}
-	
+
 	/**
 	 * Method {@link RunNotifier#fireTestStarted(Description)} was called
 	 */
@@ -61,7 +61,7 @@ public class ReporterVerifier {
 	public void scenarioStarted() {
 		verify(notifier).fireTestStarted(scenarioDescription);
 	}
-	
+
 	/**
 	 * Method {@link RunNotifier#fireTestStarted(Description)} per scenario was called
 	 */

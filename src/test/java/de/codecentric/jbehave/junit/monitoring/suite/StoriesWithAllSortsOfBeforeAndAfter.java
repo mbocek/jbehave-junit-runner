@@ -1,8 +1,8 @@
 package de.codecentric.jbehave.junit.monitoring.suite;
 
-import java.util.Arrays;
-import java.util.List;
-
+import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
+import de.codecentric.jbehave.junit.monitoring.step.ExampleSteps;
+import de.codecentric.jbehave.junit.monitoring.step.InitSteps;
 import org.jbehave.core.Embeddable;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
@@ -12,16 +12,11 @@ import org.jbehave.core.junit.JUnitStories;
 import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
-import org.jbehave.core.steps.DelegatingStepMonitor;
-import org.jbehave.core.steps.InjectableStepsFactory;
-import org.jbehave.core.steps.InstanceStepsFactory;
-import org.jbehave.core.steps.ParameterControls;
-import org.jbehave.core.steps.StepMonitor;
+import org.jbehave.core.steps.*;
 import org.junit.runner.RunWith;
 
-import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
-import de.codecentric.jbehave.junit.monitoring.step.ExampleSteps;
-import de.codecentric.jbehave.junit.monitoring.step.InitSteps;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -35,45 +30,43 @@ import de.codecentric.jbehave.junit.monitoring.step.InitSteps;
 @RunWith(JUnitReportingRunner.class)
 public class StoriesWithAllSortsOfBeforeAndAfter extends JUnitStories {
 
-	private Configuration configuration;
+    private Configuration configuration;
 
-	public StoriesWithAllSortsOfBeforeAndAfter() {
-		JUnitReportingRunner.recommendedControls(configuredEmbedder());
+    public StoriesWithAllSortsOfBeforeAndAfter() {
+        JUnitReportingRunner.recommendedControls(configuredEmbedder());
 
-		CrossReference crossReference = new CrossReference("dummy")
-				.withJsonOnly().withOutputAfterEachStory(true)
-				.excludingStoriesWithNoExecutedScenarios(true);
-		StepMonitor stepMonitor = new DelegatingStepMonitor(
-				crossReference.getStepMonitor());
-		configuration = new MostUsefulConfiguration()
-				.useStepMonitor(stepMonitor)
-				.usePendingStepStrategy(new FailingUponPendingStep())
-				.useStoryReporterBuilder(
-						new StoryReporterBuilder().withDefaultFormats()
-								.withFailureTrace(true)
-								.withFormats(Format.XML, Format.HTML)
-								.withCrossReference(crossReference))
-				.useParameterControls(new ParameterControls("<", ">", true));
-	}
+        CrossReference crossReference = new CrossReference("dummy")
+            .withJsonOnly().withOutputAfterEachStory(true)
+            .excludingStoriesWithNoExecutedScenarios(true);
+        StepMonitor stepMonitor = new DelegatingStepMonitor(
+            crossReference.getStepMonitor());
+        configuration = new MostUsefulConfiguration()
+            .useStepMonitor(stepMonitor)
+            .usePendingStepStrategy(new FailingUponPendingStep())
+            .useStoryReporterBuilder(
+                new StoryReporterBuilder().withDefaultFormats()
+                    .withFailureTrace(true)
+                    .withFormats(Format.XML, Format.HTML)
+                    .withCrossReference(crossReference))
+            .useParameterControls(new ParameterControls("<", ">", true));
+    }
 
-	@Override
-	public Configuration configuration() {
-		// when working with CrossReferences, you have to return the same
-		// configuration INSTANCE => generate it once (in the constructor)
-		// and reuse it here.
-		return configuration;
-	}
+    @Override
+    public Configuration configuration() {
+        // when working with CrossReferences, you have to return the same
+        // configuration INSTANCE => generate it once (in the constructor)
+        // and reuse it here.
+        return configuration;
+    }
 
-	@Override
-	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new ExampleSteps(),
-				new InitSteps());
-	}
+    @Override
+    public InjectableStepsFactory stepsFactory() {
+        return new InstanceStepsFactory(configuration(), new ExampleSteps(), new InitSteps());
+    }
 
-	@Override
-	protected List<String> storyPaths() {
-		return Arrays
-				.asList("de/codecentric/jbehave/junit/monitoring/MultiplicationWithExamplesAndGiven.story");
-	}
+    @Override
+    protected List<String> storyPaths() {
+        return Arrays.asList("de/codecentric/jbehave/junit/monitoring/MultiplicationWithExamplesAndGiven.story");
+    }
 
 }

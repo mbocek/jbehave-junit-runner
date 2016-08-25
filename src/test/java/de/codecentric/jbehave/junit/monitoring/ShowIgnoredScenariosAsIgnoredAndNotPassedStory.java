@@ -13,20 +13,19 @@ import java.util.Arrays;
 @RunWith(JUnitReportingRunner.class)
 public class ShowIgnoredScenariosAsIgnoredAndNotPassedStory extends JUnitStory {
 
-	public ShowIgnoredScenariosAsIgnoredAndNotPassedStory() {
-		JUnitReportingRunner.recommendedControls(configuredEmbedder());
-		configuredEmbedder().useMetaFilters(Arrays.asList("-skip"));
-	}
+    public ShowIgnoredScenariosAsIgnoredAndNotPassedStory() {
+        JUnitReportingRunner.recommendedControls(configuredEmbedder());
+        configuredEmbedder().useMetaFilters(Arrays.asList("-skip"));
+    }
 
-	@Override
-	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new ExampleSteps());
-	}
+    @Override
+    public InjectableStepsFactory stepsFactory() {
+        return new InstanceStepsFactory(configuration(), new ExampleSteps());
+    }
 
-	@Override
-	public Configuration configuration() {
-		// add custom coverters
-		return new MostUsefulConfiguration();
-	}
-
+    @Override
+    public Configuration configuration() {
+        // add custom coverters
+        return new MostUsefulConfiguration();
+    }
 }

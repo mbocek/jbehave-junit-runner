@@ -4,7 +4,7 @@ import org.jbehave.core.junit.JUnitStories;
 
 /**
  * Abstract {@link JUnitStories} implementation.
- * 
+ *
  * @author Michal Bocek
  * @since 4/8/2016
  */

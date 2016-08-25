@@ -11,20 +11,19 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitReportingRunner.class)
 public class FailedStepInScenarioJUnitStory extends JUnitStory {
 
-	public FailedStepInScenarioJUnitStory() {
-		JUnitReportingRunner.recommendedControls(configuredEmbedder());
+    public FailedStepInScenarioJUnitStory() {
+        JUnitReportingRunner.recommendedControls(configuredEmbedder());
+    }
 
-	}
+    @Override
+    public InjectableStepsFactory stepsFactory() {
+        return new InstanceStepsFactory(configuration(), new ExampleSteps());
+    }
 
-	@Override
-	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new ExampleSteps());
-	}
-
-	@Override
-	public Configuration configuration() {
-		// add custom coverters
-		return new MostUsefulConfiguration();
-	}
+    @Override
+    public Configuration configuration() {
+        // add custom coverters
+        return new MostUsefulConfiguration();
+    }
 
 }
