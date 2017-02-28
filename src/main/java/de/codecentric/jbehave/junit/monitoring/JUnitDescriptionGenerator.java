@@ -158,14 +158,26 @@ public class JUnitDescriptionGenerator {
 		try {
 			StepType stepType = configuration.keywords()
 					.stepTypeFor(stringStep);
-			if (stepType == StepType.IGNORABLE) {
-				addIgnorableStep(description, stringStepOneLine);
-			} else {
-				addPendingStep(description, stringStepOneLine);
+			if (isNotAComment(stringStepOneLine)) {
+				if (stepType == StepType.IGNORABLE) {
+					addIgnorableStep(description, stringStepOneLine);
+				} else {
+					addPendingStep(description, stringStepOneLine);
+				}
 			}
 		} catch (StartingWordNotFound e) {
 			// WHAT NOW?
 		}
+	}
+
+	private boolean isNotAComment(final String stringStepOneLine) {
+		boolean result;
+		if (allCandidates.isEmpty()) {
+			result = true;
+		} else {
+			result = !allCandidates.get(0).comment(stringStepOneLine);
+		}
+		return result;
 	}
 
 	private void addIgnorableStep(Description description, String stringStep) {

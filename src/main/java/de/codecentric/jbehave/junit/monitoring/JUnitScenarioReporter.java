@@ -321,6 +321,11 @@ public class JUnitScenarioReporter implements ExtendedStoryReporter {
 	}
 
 	@Override
+	public void comment(final String step) {
+		logger.info("Comment: {}", step);
+	}
+
+	@Override
 	public void notPerformed(String arg0) {
 		logger.info("Not performed: {}", arg0);
 		if (!givenStoryContext) {
@@ -379,6 +384,11 @@ public class JUnitScenarioReporter implements ExtendedStoryReporter {
 	@Override
 	public void restarted(String arg0, Throwable arg1) {
 		logger.info("Restarted: {} ({})", arg0, arg1);
+	}
+
+	@Override
+	public void restartedStory(final Story story, final Throwable cause) {
+		logger.info("Restarted story: {} ({})", story, cause);
 	}
 
 	@Override

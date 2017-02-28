@@ -5,9 +5,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.xml.crypto.NoSuchMechanismException;
-
 import org.jbehave.core.ConfigurableEmbedder;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.embedder.Embedder;
@@ -98,7 +95,7 @@ public class JUnitReportingRunner extends BlockJUnit4ClassRunner {
 				// tell the reporter how to handle pending steps
 				junitReporter.usePendingStepStrategy(configuration
 						.pendingStepStrategy());
-			
+
 				addToStoryReporterFormats(junitReporter);
 
 				try {

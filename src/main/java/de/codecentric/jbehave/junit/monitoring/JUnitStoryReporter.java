@@ -28,11 +28,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Implementation of {@link StoryReporter}. 
+ * Implementation of {@link StoryReporter}.
  * This reporter reports only story level events.
- * 
+ *
  * @author Michal Bocek
- * @since 27/07/16 
+ * @since 27/07/16
  */
 public class JUnitStoryReporter implements ExtendedStoryReporter {
 	private static Logger logger = LoggerFactory.getLogger(JUnitStoryReporter.class);
@@ -153,6 +153,11 @@ public class JUnitStoryReporter implements ExtendedStoryReporter {
 	}
 
 	@Override
+	public void comment(final String step) {
+		logger.info("Comment: {}", step);
+	}
+
+	@Override
 	public void notPerformed(String arg0) {
 		logger.info("Not performed: {}", arg0);
 	}
@@ -204,6 +209,11 @@ public class JUnitStoryReporter implements ExtendedStoryReporter {
 	@Override
 	public void restarted(String arg0, Throwable arg1) {
 		logger.info("Restarted: {} ({})", arg0, arg1);
+	}
+
+	@Override
+	public void restartedStory(final Story story, final Throwable cause) {
+		logger.info("Restarted story: {} ({})", story, cause);
 	}
 
 	@Override

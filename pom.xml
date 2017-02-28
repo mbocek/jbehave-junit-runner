@@ -54,7 +54,7 @@
 
 	<properties>
 		<jdk.version>1.7</jdk.version>
-		<jbehave.version>3.9</jbehave.version>
+		<jbehave.version>4.1</jbehave.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.9.0</mockito.version>
 		<slf4j.version>1.7.21</slf4j.version>
@@ -121,7 +121,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
+			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>provided</scope>
 		</dependency>
